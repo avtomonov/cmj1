@@ -12,7 +12,7 @@ const app_id_insales = 'e430f992ca01bc61286b1e50bf58c57c'
 const app_key_insales = '17b8a11d15946f5aaaf39aaa4278aa9b'
 const api = {};
 
-api.changeStatus = (order_id, custom_status_permalink = accepted) => {
+api.changeStatus = (order_id, custom_status_permalink = 'accepted') => {
 	let status = {
 	  "order": {
 	    "custom_status_permalink": `${custom_status_permalink}`
