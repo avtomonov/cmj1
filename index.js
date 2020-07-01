@@ -18,6 +18,9 @@ api.changeStatus = (order_id, custom_status_permalink = 'accepted') => {
 	    "custom_status_permalink": `${custom_status_permalink}`
 	  }
 	}	
+	let headersOpt = {  
+    	"Content-type": "application/json",
+	};
 	request(
 	        {
 	        method:'put',
