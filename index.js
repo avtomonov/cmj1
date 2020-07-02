@@ -2,8 +2,11 @@ const express = require('express')
 const request = require('request')
 const MongoClient = require('mongodb').MongoClient;
 const app = express()
+
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.urlencoded());
 const bodyParser = require('body-parser');
-const urlencodedParser = bodyParser.urlencoded({extended: false});
+
 
 const PORT = process.env.PORT || 80
 
@@ -60,16 +63,10 @@ console.log(client)
 
 
 
-
-
-
-
-app.post('/databese', urlencodedParser, function(req, res) {
-	res.send(req, res);	
-  res.end(req, res);
+app.post('/url', function(req, res) {
+    const url = req.body.url;
+    res.send(url);
 });
-
-
 
 
 app.get('/', (req, res) => {
