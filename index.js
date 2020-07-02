@@ -3,9 +3,9 @@ const request = require('request')
 const MongoClient = require('mongodb').MongoClient;
 const app = express()
 
+const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.urlencoded());
-const bodyParser = require('body-parser');
 
 
 const PORT = process.env.PORT || 80
@@ -113,11 +113,11 @@ request(
         json: true,
     }, function (error, response, body) {  
         //Print the Response
-        let send = JSON.stringify(response)	
-		res.send(`
-		   	<h1>Замена статусов заказа инсейлс</h1>
-			<div>${send}</div>
-		`);	
+  //       let send = JSON.stringify(response)	
+		// res.send(`
+		//    	<h1>Замена статусов заказа инсейлс</h1>
+		// 	<div>${send}</div>
+		// `);	
 }); 
 
 
