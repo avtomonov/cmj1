@@ -65,7 +65,7 @@ console.log(client)
 
 
 app.post('/databese', urlencodedParser, function(req, res) {
-  res.render('contact-success', {data: req.body});
+  res.end('contact-success', {data: req.body});
 });
 
 
