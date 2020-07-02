@@ -15,6 +15,7 @@ const key = '17b8a11d15946f5aaaf39aaa4278aa9b'
 
 const uri = "mongodb+srv://andrevv:qwe321@cluster0.qc9y5.mongodb.net/<dbname>?retryWrites=true&w=majority";
 
+
 const client = new MongoClient(uri, { useNewUrlParser: true });
 
 client.connect(err => {
