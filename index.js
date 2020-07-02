@@ -2,6 +2,8 @@ const express = require('express')
 const request = require('request')
 const MongoClient = require('mongodb').MongoClient;
 const app = express()
+const bodyParser = require('body-parser');
+const urlencodedParser = bodyParser.urlencoded({extended: false});
 
 const PORT = process.env.PORT || 80
 
@@ -62,11 +64,9 @@ console.log(client)
 
 
 
-
-
-app.post('/database', (req, res) => {
-	res.end(req, res);
-})
+app.post('/databese', urlencodedParser, function(req, res) {
+  res.render('contact-success', {data: req.body});
+});
 
 
 
