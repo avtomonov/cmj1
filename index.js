@@ -63,10 +63,6 @@ console.log(client)
 
 
 
-app.post('/database', (req, res) => {
-	res.end(req, res)
-})
-
 
 
 
