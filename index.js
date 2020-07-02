@@ -17,11 +17,6 @@ const uri = "mongodb+srv://andrevv:qwe321@cluster0.qc9y5.mongodb.net/<dbname>?re
 
 const client = new MongoClient(uri, { useNewUrlParser: true });
 
-
-var orderCreate = (order) =>{
-	
-}
-
 client.connect(err => {
 	const collection = client.db("test").collection("devices");
  	collection.insertOne(
@@ -35,42 +30,120 @@ client.connect(err => {
     );
   // perform actions on the collection object
   client.close();
+
+
+
+
 });
+
+console.log(client)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 
 app.post('/database', (req, res) => {
-	console.log(req, res);
+	res.end(req, res)
 })
 
+
+
+
+
+
 app.get('/', (req, res) => {
-	let status = {
-	  "order": {
-	    "custom_status": "accepted"
-	  }
-	}
+    
 
-	//Custom Header pass
-	var headersOpt = {  
-	    "Content-Type": "application/json",
-	};
+	// request(`https://${id}:${key}@chesnokov-lox.myinsales.ru/admin/orders.json`, (err, response, body) => {
+	//    let send = JSON.stringify(response)	
+	//    res.send(`
+	//    	<h1>Замена статусов заказа инсейлс</h1>
+	// 	<div>${send}</div>
+	//    	`);	
+	//    console.log(err, response, body)
+	// });
 
-	request(
-	        {
-	        method:'put',
-	        url:`https://${id}:${key}@chesnokov-lox.myinsales.ru/admin/orders/21197247.json`, 
-	        body: status, 
-	        headers: headersOpt,
-	        json: true,
-	    }, function (error, response, body) {  
-	        //Print the Response
-	        let send = JSON.stringify(response)	
-			res.send(`
-			   	<h1>Замена статусов заказа инсейлс</h1>
-				<div>${send}</div>
-			`);	
-	}); 
+
+	// request(`https://${id}:${key}@chesnokov-lox.myinsales.ru/admin/orders/21197247.json`, (err, response, body) => {
+	//     let send = JSON.stringify(response)	
+	// 	res.send(`
+	// 	   	<h1>Замена статусов заказа инсейлс</h1>
+	// 		<div>${send}</div>
+	// 	`);	
+	// });
+
+
+
+let status = {
+  "order": {
+    "custom_status": "accepted"
+  }
+}
+
+
+
+//Custom Header pass
+var headersOpt = {  
+    "Content-Type": "application/json",
+};
+request(
+        {
+        method:'put',
+        url:`https://${id}:${key}@chesnokov-lox.myinsales.ru/admin/orders/21197247.json`, 
+        body: status, 
+        headers: headersOpt,
+        json: true,
+    }, function (error, response, body) {  
+        //Print the Response
+        let send = JSON.stringify(response)	
+		res.send(`
+		   	<h1>Замена статусов заказа инсейлс</h1>
+			<div>${send}</div>
+		`);	
+}); 
+
+
+// request({ url: `https://${id}:${key}@chesnokov-lox.myinsales.ru/admin/orders/21197247.json`,headers: {'content-type' : 'application/json'}, method: 'PUT', form: status}, (err, response, body) =>{
+// 	let send = JSON.stringify(response)	
+// 	res.send(`
+// 	   	<h1>Замена статусов заказа инсейлс</h1>
+// 		<div>${send}</div>
+// 	`);	
+// })
+
+	// request.put({
+ //     url: `https://${id}:${key}@chesnokov-lox.myinsales.ru/admin/orders/21197247.json`,
+ //     data: status
+ //    }, (err, response, body) => {
+ //     if(err)
+ //       return res.status(500).send({message: err});
+    
+ //     console.log(err, response, body);
+    
+ //    });
+
+
 });
 
 
