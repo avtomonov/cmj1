@@ -9,16 +9,17 @@ const client           = new MongoClient(uri, { useNewUrlParser: true });
 
 app.use(function (req, res, next) {
     var origins = [
-        'http://chesnokov-lox.myinsales.ru/',
+        'http://chesnokov-lox.myinsales.ru',
         'http://www.example.com'
     ];
 
     for(var i = 0; i < origins.length; i++){
         var origin = origins[i];
+        console.log(req)
 
-        if(req.headers.origin.indexOf(origin) > -1){
-            res.header('Access-Control-Allow-Origin', req.headers.origin);
-        }
+        // if(req.headers.origin.indexOf(origin) > -1){
+        //     res.header('Access-Control-Allow-Origin', req.headers.origin);
+        // }
     }
     
     res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
@@ -31,7 +32,6 @@ app.listen(PORT, () => {
 });
 
 app.post("/", urlencodedParser, function (request, response) {
-    response.set('Access-Control-Allow-Origin', '*')
     DataBase(request, response)
 });
 
