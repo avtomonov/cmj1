@@ -6,25 +6,19 @@ const PORT             = process.env.PORT || 80;
 const MongoClient      = require('mongodb').MongoClient;
 const uri              = "mongodb+srv://cmj:cmj123@cluster0.ksqhm.mongodb.net/<dbname>?retryWrites=true&w=majority";
 const client           = new MongoClient(uri, { useNewUrlParser: true });
+var cors = require ('cors');
+
+app.use(cors({
+    origin:['http://chesnokov-lox.myinsales.ru','http://chesnokov-lox.myinsales.ru'],
+    credentials:true
+}));
 
 app.use(function (req, res, next) {
-    var origins = [
-        'http://chesnokov-lox.myinsales.ru',
-        'http://www.example.com'
-    ];
-
-    for(var i = 0; i < origins.length; i++){
-        var origin = origins[i];
-        console.log(req)
-
-        // if(req.headers.origin.indexOf(origin) > -1){
-        //     res.header('Access-Control-Allow-Origin', req.headers.origin);
-        // }
-    }
-    
-    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
+  res.header('Access-Control-Allow-Origin', "http://chesnokov-lox.myinsales.ru");
+  res.header('Access-Control-Allow-Headers', true);
+  res.header('Access-Control-Allow-Credentials', true);
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  next();
 });
 
 app.listen(PORT, () => {
