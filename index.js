@@ -6,25 +6,16 @@ const PORT             = process.env.PORT || 80;
 const MongoClient      = require('mongodb').MongoClient;
 const uri              = "mongodb+srv://cmj:cmj123@cluster0.ksqhm.mongodb.net/<dbname>?retryWrites=true&w=majority";
 const client           = new MongoClient(uri, { useNewUrlParser: true });
-var cors = require ('cors');
-
-app.use(cors({
-    origin:['http://chesnokov-lox.myinsales.ru','http://chesnokov-lox.myinsales.ru'],
-    credentials:true
-}));
-
-
-
-app.use(function (req, res, next) {
-  res.header('Access-Control-Allow-Origin', "http://chesnokov-lox.myinsales.ru");
-  res.header('Access-Control-Allow-Headers', true);
-  res.header('Access-Control-Allow-Credentials', true);
-  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-  next();
-});
 
 app.listen(PORT, () => {
     console.log("started server");
+});
+
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, OPTIONS");
+    next();
 });
 
 app.post("/", urlencodedParser, function (request, response) {
@@ -45,7 +36,7 @@ function DataBase(request, response) {
         response.send("Добавлено в базу");
       }
     })
-    client.close();
+    // client.close();
   });
 }
 
