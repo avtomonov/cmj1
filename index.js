@@ -13,6 +13,8 @@ app.use(cors({
     credentials:true
 }));
 
+
+
 app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Origin', "http://chesnokov-lox.myinsales.ru");
   res.header('Access-Control-Allow-Headers', true);
