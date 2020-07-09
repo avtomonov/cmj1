@@ -7,18 +7,19 @@ const MongoClient      = require('mongodb').MongoClient;
 const uri              = "mongodb+srv://cmj:cmj123@cluster0.ksqhm.mongodb.net/<dbname>?retryWrites=true&w=majority";
 const client           = new MongoClient(uri, { useNewUrlParser: true });
 
-app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    res.header("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, OPTIONS");
-    next();
-});
+// app.use(function (req, res, next) {
+//     res.header("Access-Control-Allow-Origin", "*");
+//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//     res.header("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, OPTIONS");
+//     next();
+// });
 
 app.listen(PORT, () => {
     console.log("started server");
 });
 
 app.post("/", urlencodedParser, function (request, response) {
+    response.set('Access-Control-Allow-Origin', '*')
     DataBase(request, response)
 });
 
