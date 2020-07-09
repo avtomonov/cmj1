@@ -8,9 +8,21 @@ const uri              = "mongodb+srv://cmj:cmj123@cluster0.ksqhm.mongodb.net/<d
 const client           = new MongoClient(uri, { useNewUrlParser: true });
 
 app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
+    var origins = [
+        'http://chesnokov-lox.myinsales.ru/',
+        'http://www.example.com'
+    ];
+
+    for(var i = 0; i < origins.length; i++){
+        var origin = origins[i];
+
+        if(req.headers.origin.indexOf(origin) > -1){
+            res.header('Access-Control-Allow-Origin', req.headers.origin);
+        }
+    }
+    
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    res.header("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, OPTIONS");
     next();
 });
 
