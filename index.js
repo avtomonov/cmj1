@@ -11,8 +11,6 @@ app.listen(PORT, () => {
     console.log("started server");
 });
 
-
-
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -34,9 +32,11 @@ function DataBase(request, response) {
     collection.insertOne({ id: 1, login: 'login1', name: 'name1', gender: 'male' }, (err, result) => {
       if (err) {
         throw err
+      }else{
+        response.send("Добавлено в базу");
       }
     })
-    // client.close();
+    client.close();
   });
 }
 
