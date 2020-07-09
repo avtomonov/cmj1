@@ -26,6 +26,8 @@ app.get("/", function (request, response) {
     response.send("Главная страница");
 });
 
+
+
 function DataBase(request, response) {
   client.connect(err => {
     const collection = client.db("test").collection("devices");
