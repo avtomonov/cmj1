@@ -19,33 +19,30 @@ mongoose.connect(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
-const cors = require('cors');
 
-var whitelist = ['http://www.cmjournal.ru', 'http://example2.com']
-var corsOptionsDelegate = function (req, callback) {
-  var corsOptions;
-  if (whitelist.indexOf(req.header('Origin')) !== -1) {
-    corsOptions = { origin: true } // reflect (enable) the requested origin in the CORS response
-  }else{
-    corsOptions = { origin: false } // disable CORS for this request
-  }
-  callback(null, corsOptions) // callback expects two parameters: error and options
-}
 
 app.listen(PORT, () => {
   console.log("started server");
 });
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  res.header("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, OPTIONS");
-  next();
+
+
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    next();
+
+    app.options('*', (req, res) => {
+        // allowed XHR methods  
+        res.header('Access-Control-Allow-Methods', 'GET, PATCH, PUT, POST, DELETE, OPTIONS');
+        res.send();
+    });
 });
+
+
+
 app.post("/", urlencodedParser, function(request, response) {
-  response.header("Access-Control-Allow-Origin", "*");
-  response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  response.header("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, OPTIONS");
-  DataBaseUpload(request, response);
+  DataBaseUpload(request, response)
 });
 app.get("/", function(request, response) {
   response.send('')
