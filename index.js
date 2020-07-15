@@ -19,26 +19,22 @@ mongoose.connect(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
+var cors = require('cors')
+
+// app.listen(PORT, () => {
+//   console.log("started server");
+// });
 
 
-app.listen(PORT, () => {
-  console.log("started server");
-});
-
-
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    next();
-
-    app.options('*', (req, res) => {
-        // allowed XHR methods  
-        res.header('Access-Control-Allow-Methods', 'GET, PATCH, PUT, POST, DELETE, OPTIONS');
-        res.send();
-    });
-});
-
+app.use(cors())
+ 
+app.get('/products/:id', function (req, res, next) {
+  res.json({msg: 'This is CORS-enabled for all origins!'})
+})
+ 
+app.listen(80, function () {
+  console.log('CORS-enabled web server listening on port 80')
+})
 
 
 app.post("/", urlencodedParser, function(request, response) {
