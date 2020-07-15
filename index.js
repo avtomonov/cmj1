@@ -38,10 +38,12 @@ app.listen(PORT, () => {
 
 
 app.post("/",cors(), urlencodedParser, function(request, response) {
+  console.log('post')
   DataBaseUpload(request, response)
   response.send('post')
 });
 app.get("/", function(request, response) {
+  console.log('get')
   response.send('get')
 });
 
