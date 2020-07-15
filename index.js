@@ -15,6 +15,11 @@ const db = mongoose.connection;
 const id = 'e430f992ca01bc61286b1e50bf58c57c';
 const key = '17b8a11d15946f5aaaf39aaa4278aa9b';
 const Request = require('request')
+const cors = require('cors')
+
+
+
+
 mongoose.connect(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true
@@ -32,27 +37,7 @@ app.listen(PORT, () => {
 
 
 
-// Add headers
-app.use(function (req, res, next) {
-
-    // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', 'http://www.cmjournal.ru/');
-
-    // Request methods you wish to allow
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-
-    // Request headers you wish to allow
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-
-    // Set to true if you need the website to include cookies in the requests sent
-    // to the API (e.g. in case you use sessions)
-    res.setHeader('Access-Control-Allow-Credentials', true);
-
-    // Pass to next layer of middleware
-    next();
-});
-
-app.post("/", urlencodedParser, function(request, response) {
+app.post("/",cors(), urlencodedParser, function(request, response) {
   DataBaseUpload(request, response)
   response.send('post')
 });
