@@ -19,6 +19,13 @@ mongoose.connect(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
+
+
+
+const cors = require('cors');
+app.use(cors());
+app.options('*', cors());
+
 app.listen(PORT, () => {
   console.log("started server");
 });
