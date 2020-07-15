@@ -49,6 +49,7 @@ app.get("/", function(request, response) {
 
 function DataBaseUpload(request, response) {
   let req_body = JSON.parse(JSON.stringify(request.body));
+  console.log(req_body);
   order = new ORDER(req_body);
   order.save().then(() => console.log('upload'));
 }
