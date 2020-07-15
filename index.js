@@ -12,8 +12,8 @@ const ORDER = mongoose.model('ORDER', {
   products: String
 });
 const db = mongoose.connection;
-const id = '416e6ccc7351104ff0e3c2085e00fb8b';
-const key = '38ba2e7d54ddfc77854cc8c25a43ad51';
+const id = 'e430f992ca01bc61286b1e50bf58c57c';
+const key = '17b8a11d15946f5aaaf39aaa4278aa9b';
 const Request = require('request')
 const cors = require('cors')
 
@@ -27,8 +27,17 @@ mongoose.connect(uri, {
 app.listen(PORT, () => {
   console.log("started server");
 });
+// app.use(function(req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//   res.header("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, OPTIONS");
+//   next();
+// });
 
-app.post("/",cors(), urlencodedParser, function(request, response) {
+
+
+
+app.post("/", cors(), urlencodedParser, function(request, response) {
   console.log('post')
   DataBaseUpload(request, response)
   response.send('post')
@@ -39,7 +48,6 @@ app.get("/", function(request, response) {
 });
 
 function DataBaseUpload(request, response) {
-  console.log('DataBaseUpload')
   let req_body = JSON.parse(JSON.stringify(request.body));
   console.log(req_body);
   order = new ORDER(req_body);
@@ -47,7 +55,6 @@ function DataBaseUpload(request, response) {
 }
 
 function DataBaseUpDate(order_id, product_id) {
-  console.log('DataBaseUpDate')
   ORDER.find({
     order_id: order_id
   }, function(err, orders) {
@@ -75,16 +82,15 @@ function DataBaseUpDate(order_id, product_id) {
 }
 
 function SetStatus(order_id, product_id) {
-  console.log('SetStatus')
   var status = {
     "order": {
-      "custom_status_permalink": "obnovlen"
+      "custom_status_permalink": "approved"
     }
   }
   var headersOpt = {
     "Content-Type": "application/json",
   };
-  var url = `https://${id}:${key}@shop-cn677.myinsales.ru/admin/orders/${order_id}.json`;
+  var url = `https://${id}:${key}@chesnokov-lox.myinsales.ru/admin/orders/${order_id}.json`;
   Request({
     method: 'put',
     url: url,
@@ -97,10 +103,9 @@ function SetStatus(order_id, product_id) {
 }
 
 function InsalesProductAvailable(orders) {
-  console.log(orders)
   for(let i = 0; i < orders.length; i++) {
     var order_id = orders[i].order_id;
-    Request(`https://${id}:${key}@shop-cn677.myinsales.ru/admin/products.json?from_id=${orders[i].products}`, (err, response, body) => {
+    Request(`https://${id}:${key}@chesnokov-lox.myinsales.ru/admin/products.json?from_id=${orders[i].products}`, (err, response, body) => {
       var productsResponce = JSON.parse(response.body)
       for(var key in productsResponce) {
         var properties = productsResponce[key].properties;
