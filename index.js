@@ -137,4 +137,4 @@ var interval = setInterval(function() {
     if(err) return console.error(err);
     InsalesProductAvailable(orders);
   })
-}, 6000)
+}, 60000)
