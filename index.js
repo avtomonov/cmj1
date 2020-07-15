@@ -39,6 +39,7 @@ app.get("/", function(request, response) {
 });
 
 function DataBaseUpload(request, response) {
+  console.log('DataBaseUpload')
   let req_body = JSON.parse(JSON.stringify(request.body));
   console.log(req_body);
   order = new ORDER(req_body);
@@ -46,6 +47,7 @@ function DataBaseUpload(request, response) {
 }
 
 function DataBaseUpDate(order_id, product_id) {
+  console.log('DataBaseUpDate')
   ORDER.find({
     order_id: order_id
   }, function(err, orders) {
@@ -73,6 +75,7 @@ function DataBaseUpDate(order_id, product_id) {
 }
 
 function SetStatus(order_id, product_id) {
+  console.log('SetStatus')
   var status = {
     "order": {
       "custom_status_permalink": "obnovlen"
@@ -94,6 +97,7 @@ function SetStatus(order_id, product_id) {
 }
 
 function InsalesProductAvailable(orders) {
+  console.log(orders)
   for(let i = 0; i < orders.length; i++) {
     var order_id = orders[i].order_id;
     Request(`https://${id}:${key}@shop-cn677.myinsales.ru/admin/products.json?from_id=${orders[i].products}`, (err, response, body) => {
