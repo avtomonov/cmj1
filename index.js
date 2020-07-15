@@ -54,9 +54,10 @@ app.use(function (req, res, next) {
 
 app.post("/", urlencodedParser, function(request, response) {
   DataBaseUpload(request, response)
+  response.send('post')
 });
 app.get("/", function(request, response) {
-  response.send('')
+  response.send('get')
 });
 
 function DataBaseUpload(request, response) {
@@ -88,7 +89,6 @@ function DataBaseUpDate(order_id, product_id) {
         // mongoose.disconnect();
         if(err) return console.log(err);
       });
-      console.log('update')
     }
   })
 }
